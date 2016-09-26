@@ -186,7 +186,8 @@ class Group extends EventEmitter {
   exists (req, res, next) {
     // Resolve using either hostname `app.tld`
     // or id param `http://localhost:2000/app`
-    const tld = new RegExp(`.${conf.tld}$`)
+    const XIP_IO_SUFFIX = '(\.\d+){4}\.xip\.io)'
+    const tld = new RegExp(`\.${conf.tld}(${XIP_IO_SUFFIX})?$`)
     const id = req.params.id
       ? this.resolve(req.params.id)
       : this.resolve(req.hostname.replace(tld, ''))
